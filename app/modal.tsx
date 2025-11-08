@@ -1,29 +1,105 @@
-import { Link } from 'expo-router';
-import { StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { CharismaLogo } from '@/components/charisma-logo';
 
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
+const ONBOARDING_KEY = '@charisma_onboarding';
 
-export default function ModalScreen() {
+export default function WelcomeScreen() {
+  const router = useRouter();
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme ?? 'dark'];
+
+  const handleGetStarted = () => {
+    // Navigate to charisma selection screen
+    router.push('/onboarding-charisma');
+  };
+
   return (
-    <ThemedView style={styles.container}>
-      <ThemedText type="title">This is a modal</ThemedText>
-      <Link href="/" dismissTo style={styles.link}>
-        <ThemedText type="link">Go to home screen</ThemedText>
-      </Link>
-    </ThemedView>
+    <View style={[styles.container, { backgroundColor: '#000000' }]}>
+      {/* Top Section - App Name */}
+      <View style={styles.topSection}>
+        <Text style={styles.appName}>Charisma{"\n"}Tracker</Text>
+      </View>
+
+      {/* Middle Section - Logo */}
+      <View style={styles.middleSection}>
+        <View style={styles.logoContainer}>
+          <CharismaLogo size={200} />
+        </View>
+        
+        {/* Subtitle */}
+        <Text style={styles.subtitle}>Improve Your{"\n"}Charisma Now</Text>
+      </View>
+
+      {/* Bottom Section - Get Started Button */}
+      <View style={styles.bottomSection}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleGetStarted}
+          activeOpacity={0.8}>
+          <Text style={styles.buttonText}>Get Started</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
   },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
+  topSection: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 60,
+  },
+  appName: {
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    lineHeight: 56,
+  },
+  middleSection: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoContainer: {
+    marginBottom: 40,
+  },
+  subtitle: {
+    fontSize: 24,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    lineHeight: 32,
+  },
+  bottomSection: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 40,
+    paddingBottom: 60,
+  },
+  button: {
+    backgroundColor: '#F4C542',
+    paddingVertical: 20,
+    borderRadius: 30,
+    alignItems: 'center',
+    shadowColor: '#F4C542',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  buttonText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#000000',
   },
 });

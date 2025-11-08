@@ -5,27 +5,124 @@
 
 import { Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+// CharismaTracker brand colors
+const goldColor = '#F4C542';
+const darkBackground = '#1A1A1A';
+const cardBackground = '#2A2A2A';
+const textPrimary = '#FFFFFF';
+const textSecondary = '#B0B0B0';
+
+const tintColorLight = goldColor;
+const tintColorDark = goldColor;
 
 export const Colors = {
   light: {
     text: '#11181C',
+    textSecondary: '#687076',
     background: '#fff',
     tint: tintColorLight,
     icon: '#687076',
     tabIconDefault: '#687076',
     tabIconSelected: tintColorLight,
+    gold: goldColor,
+    card: '#f5f5f5',
+    border: '#E0E0E0',
+    messageBubble: '#242626', // Dark gray for sent messages
+    messageBubbleReceived: '#FFFFFF', // White for received messages
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
+    text: textPrimary,
+    textSecondary: textSecondary,
+    background: darkBackground,
+    card: cardBackground,
     tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
+    icon: textSecondary,
+    tabIconDefault: textSecondary,
     tabIconSelected: tintColorDark,
+    gold: goldColor,
+    border: '#3A3A3A',
+    messageBubble: '#242626', // Dark gray for sent messages
+    messageBubbleReceived: cardBackground, // Dark card for received messages
   },
 };
+
+// CharismaTracker data types
+export interface CharismaEntry {
+  id: string;
+  majorCharisma: string;
+  subCharisma: string;
+  notes: string;
+  timestamp: number;
+  date: string;
+  time: string;
+  charismaEmoji: string;
+  emotionEmojis: string[];
+}
+
+export interface OnboardingState {
+  completed: boolean;
+  selectedEmotions: string[];
+}
+
+export interface UserProfile {
+  id: string;
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+  phone?: string;
+  avatar?: string;
+  dateOfBirth?: number;
+  gender?: 'male' | 'female' | 'other' | 'prefer_not_to_say';
+  location: {
+    city: string;
+    country: string;
+  };
+  isVerified: boolean;
+  twoFactorEnabled: boolean;
+  bio: string;
+  interests: string[];
+  occupation?: string;
+  website?: string;
+  socialLinks: {
+    facebook?: string;
+    instagram?: string;
+    whatsapp?: string;
+    tiktok?: string;
+  };
+  joinDate: number;
+  totalEntries: number;
+  streak: number;
+  topCharisma: string;
+  preferredEmotions: string[];
+  notifications: {
+    email: boolean;
+    push: boolean;
+    dailyReminders: boolean;
+    weeklyReports: boolean;
+  };
+  privacy: {
+    profileVisibility: 'public' | 'friends' | 'private';
+    showEmail: boolean;
+    showPhone: boolean;
+    showLocation: boolean;
+    showBirthDate: boolean;
+  };
+  preferences: {
+    language: string;
+    theme: 'light' | 'dark' | 'auto';
+  };
+}
+
+export interface UserStats {
+  totalEntries: number;
+  currentStreak: number;
+  longestStreak: number;
+  topCharisma: { type: string; count: number };
+  topEmotion: string;
+  weeklyAverage: number;
+  monthlyAverage: number;
+}
 
 export const Fonts = Platform.select({
   ios: {
