@@ -1,15 +1,32 @@
 {
   "expo": {
     "name": "CharismaTracker",
-    "slug": "CharismaTracker",
+    "slug": "charisma-tracker",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "charismatracker",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "owner": "frznfrg",
+    "extra": {
+      "eas": {
+        "projectId": "14d8b94a-bf0b-414f-9f77-a990262eda0b"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/14d8b94a-bf0b-414f-9f77-a990262eda0b"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aiagentmaker.charismatracker",
+      "buildNumber": "1",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -19,7 +36,9 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.aiagentmaker.charismatracker",
+      "versionCode": 1
     },
     "web": {
       "output": "static",

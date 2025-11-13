@@ -36,12 +36,12 @@ const emotionCategories: EmotionCategory[] = [
   {
     title: 'Warmth & Kindness',
     options: [
-      { emoji: '🤗', label: 'Hugging\nFace', id: 'hugging_face' },
+      { emoji: '🤗', label: 'Hugging\nFace', id: 'hugging_face_warmth' },
       { emoji: '☀️', label: 'Sun', id: 'sun' },
       { emoji: '🌻', label: 'Sunflower', id: 'sunflower' },
       { emoji: '💖', label: 'Sparkling\nHeart', id: 'sparkling_heart' },
       { emoji: '🌈', label: 'Rainbow', id: 'rainbow' },
-      { emoji: '🤝', label: 'Handshake', id: 'handshake' },
+      { emoji: '🤝', label: 'Handshake', id: 'handshake_warmth' },
       { emoji: '🕊️', label: 'Dove', id: 'dove' },
       { emoji: '👐', label: 'Open\nHands', id: 'open_hands' },
     ],
@@ -65,7 +65,7 @@ const emotionCategories: EmotionCategory[] = [
       { emoji: '👀', label: 'Eyes', id: 'eyes' },
       { emoji: '👂', label: 'Ear', id: 'ear' },
       { emoji: '🧘', label: 'Lotus\nPosition', id: 'lotus_position' },
-      { emoji: '🧠', label: 'Brain', id: 'brain_focus' },
+      { emoji: '🧠', label: 'Brain', id: 'brain_2' },
       { emoji: '🗨️', label: 'Speech\nBubble', id: 'speech_bubble' },
       { emoji: '🙌', label: 'Raising\nHands', id: 'raising_hands' },
       { emoji: '🤔', label: 'Thinking\nFace', id: 'thinking_face' },
@@ -90,11 +90,11 @@ const emotionCategories: EmotionCategory[] = [
     options: [
       { emoji: '🙏', label: 'Folded\nHands', id: 'folded_hands' },
       { emoji: '🧑‍🤝‍🧑', label: 'People\nHolding Hands', id: 'people_holding' },
-      { emoji: '🤝', label: 'Handshake', id: 'handshake_humble' },
+      { emoji: '🤝', label: 'Handshake', id: 'handshake_2' },
       { emoji: '🥺', label: 'Pleading\nFace', id: 'pleading_face' },
       { emoji: '🤲', label: 'Palms Up', id: 'palms_up' },
       { emoji: '😊', label: 'Smiling\nFace', id: 'smiling_face' },
-      { emoji: '🤗', label: 'Hugging\nFace', id: 'hugging_humble' },
+      { emoji: '🤗', label: 'Hugging\nFace', id: 'hugging_face_2' },
       { emoji: '🤫', label: 'Shushing\nFace', id: 'shushing_face' },
     ],
   },
@@ -107,7 +107,7 @@ const emotionCategories: EmotionCategory[] = [
       { emoji: '🗡️', label: 'Dagger', id: 'dagger' },
       { emoji: '🦾', label: 'Mechanical\nArm', id: 'mechanical_arm' },
       { emoji: '🎯', label: 'Target', id: 'target' },
-      { emoji: '🔥', label: 'Fire', id: 'fire_bold' },
+      { emoji: '🔥', label: 'Fire', id: 'fire_2' },
       { emoji: '💥', label: 'Collision', id: 'collision' },
     ],
   },
@@ -128,6 +128,12 @@ export default function OnboardingEmotionsScreen() {
   };
 
   const handleContinue = async () => {
+    // Validate that at least one emotion is selected
+    if (selectedEmotions.length === 0) {
+      Alert.alert('Selection Required', 'Please select at least one emotion to continue.');
+      return;
+    }
+
     // Store selected emotions and go to add-entry
     try {
       await AsyncStorage.setItem('@temp_selected_emotions', JSON.stringify(selectedEmotions));
@@ -259,7 +265,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    gap: 12,
+    marginHorizontal: -6,
   },
   emotionCard: {
     width: '30%',
@@ -271,6 +277,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 2,
     borderColor: 'transparent',
+    marginHorizontal: 6,
+    marginBottom: 12,
   },
   emotionCardSelected: {
     backgroundColor: '#2A2A2A',

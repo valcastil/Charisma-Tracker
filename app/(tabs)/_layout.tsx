@@ -36,6 +36,8 @@ export default function TabLayout() {
       if (entriesData) {
         const entries = JSON.parse(entriesData);
         setHasEntries(entries.length > 0);
+      } else {
+        setHasEntries(false);
       }
     } catch (error) {
       console.error('Error checking entries:', error);
@@ -94,8 +96,7 @@ export default function TabLayout() {
         name="explore"
         options={{
           title: '',
-          tabBarIcon: () => <AddButton />,
-          tabBarButton: (props) => (
+          tabBarButton: () => (
             <View style={styles.addButtonContainer}>
               <AddButton />
             </View>
