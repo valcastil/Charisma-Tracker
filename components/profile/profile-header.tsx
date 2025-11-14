@@ -224,7 +224,11 @@ export function ProfileHeader({ profile, onEditPress }: ProfileHeaderProps) {
         <View style={styles.statDivider} />
         
         <View style={styles.statItem}>
-          <Text style={[styles.statNumber, { color: colors.gold }]}>
+          <Text 
+            style={[styles.statNumber, { color: colors.gold }]}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.7}>
             {getCharismaDisplayName(profile.topCharisma)}
           </Text>
           <Text style={[styles.statLabel, { color: colors.textSecondary }]}>Top Charisma</Text>
@@ -361,9 +365,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   statNumber: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: 'bold',
     marginBottom: 4,
+    textAlign: 'center',
   },
   statLabel: {
     fontSize: 12,
@@ -373,7 +378,7 @@ const styles = StyleSheet.create({
     width: 1,
     height: 40,
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    marginHorizontal: 10,
+    marginHorizontal: 6,
   },
   bioContainer: {
     marginHorizontal: 20,

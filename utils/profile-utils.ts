@@ -45,7 +45,7 @@ export const createDefaultProfile = async (): Promise<UserProfile> => {
     location: { city: 'Unknown', country: 'Unknown' },
     isVerified: false,
     twoFactorEnabled: false,
-    bio: 'Welcome to Charisma Tracker! Start tracking your charisma journey.',
+    bio: undefined,
     interests: [],
     occupation: undefined,
   website: undefined,

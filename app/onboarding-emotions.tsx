@@ -111,6 +111,72 @@ const emotionCategories: EmotionCategory[] = [
       { emoji: '💥', label: 'Collision', id: 'collision' },
     ],
   },
+  {
+    title: 'Empathy & Understanding',
+    options: [
+      { emoji: '🤝', label: 'Handshake', id: 'handshake_empathy' },
+      { emoji: '🧠', label: 'Brain', id: 'brain_empathy' },
+      { emoji: '💞', label: 'Revolving\nHearts', id: 'revolving_hearts' },
+      { emoji: '🫂', label: 'People\nHugging', id: 'people_hugging' },
+      { emoji: '🧐', label: 'Face with\nMonocle', id: 'face_monocle' },
+      { emoji: '👂', label: 'Ear', id: 'ear_empathy' },
+    ],
+  },
+  {
+    title: 'Enthusiasm & Energy',
+    options: [
+      { emoji: '⚡', label: 'High\nVoltage', id: 'high_voltage_energy' },
+      { emoji: '🔥', label: 'Fire', id: 'fire_energy' },
+      { emoji: '🎊', label: 'Confetti\nBall', id: 'confetti_ball' },
+      { emoji: '🚀', label: 'Rocket', id: 'rocket_energy' },
+      { emoji: '🎆', label: 'Fireworks', id: 'fireworks' },
+      { emoji: '😁', label: 'Beaming\nFace', id: 'beaming_face' },
+    ],
+  },
+  {
+    title: 'Trust & Reliability',
+    options: [
+      { emoji: '🔒', label: 'Locked', id: 'locked' },
+      { emoji: '🛡️', label: 'Shield', id: 'shield_trust' },
+      { emoji: '🤝', label: 'Handshake', id: 'handshake_trust' },
+      { emoji: '🦉', label: 'Owl', id: 'owl' },
+      { emoji: '📜', label: 'Scroll', id: 'scroll_trust' },
+      { emoji: '⏳', label: 'Hourglass', id: 'hourglass' },
+    ],
+  },
+  {
+    title: 'Passion & Drive',
+    options: [
+      { emoji: '🔥', label: 'Fire', id: 'fire_passion' },
+      { emoji: '❤️‍🔥', label: 'Heart on\nFire', id: 'heart_fire' },
+      { emoji: '🎯', label: 'Target', id: 'target_passion' },
+      { emoji: '💥', label: 'Collision', id: 'collision_passion' },
+      { emoji: '🌟', label: 'Glowing\nStar', id: 'glowing_star_passion' },
+      { emoji: '⏩', label: 'Fast\nForward', id: 'fast_forward' },
+    ],
+  },
+  {
+    title: 'Calm & Composure',
+    options: [
+      { emoji: '🧘‍♀️', label: 'Person in\nLotus Position', id: 'lotus_calm' },
+      { emoji: '🌿', label: 'Herb', id: 'herb' },
+      { emoji: '🕊️', label: 'Dove', id: 'dove_calm' },
+      { emoji: '😌', label: 'Relieved\nFace', id: 'relieved_face' },
+      { emoji: '🌊', label: 'Water\nWave', id: 'water_wave' },
+      { emoji: '🛀', label: 'Person\nTaking Bath', id: 'person_bath' },
+    ],
+  },
+  {
+    title: 'Warmth & Approachability',
+    options: [
+      { emoji: '😊', label: 'Smiling\nFace', id: 'smiling_face_warmth' },
+      { emoji: '🌞', label: 'Sun with\nFace', id: 'sun_face_warmth' },
+      { emoji: '💛', label: 'Yellow\nHeart', id: 'yellow_heart' },
+      { emoji: '🌻', label: 'Sunflower', id: 'sunflower_warmth' },
+      { emoji: '🧸', label: 'Teddy\nBear', id: 'teddy_bear' },
+      { emoji: '🎈', label: 'Balloon', id: 'balloon' },
+    ],
+  },
 ];
 
 export default function OnboardingEmotionsScreen() {
@@ -265,10 +331,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    marginHorizontal: -6,
   },
   emotionCard: {
-    width: '30%',
+    width: '30.5%',
     aspectRatio: 1,
     backgroundColor: '#1A1A1A',
     borderRadius: 16,
@@ -277,7 +342,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 2,
     borderColor: 'transparent',
-    marginHorizontal: 6,
     marginBottom: 12,
   },
   emotionCardSelected: {

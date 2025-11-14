@@ -129,6 +129,101 @@ export default function ChatScreen() {
     setMessageText(charismaMessage);
   };
 
+  const setupVoiceRecognition = () => {
+    Voice.onSpeechStart = () => {
+      console.log('Speech recognition started');
+    };
+
+    Voice.onSpeechEnd = () => {
+      console.log('Speech recognition ended');
+    };
+
+    Voice.onSpeechResults = (event) => {
+      if (event.value && event.value.length > 0) {
+        const transcribedText = event.value[0];
+        setMessageText(transcribedText);
+        setIsTranscribing(false);
+        if (recognitionTimeout.current) {
+          clearTimeout(recognitionTimeout.current);
+        }
+      }
+    };
+
+    Voice.onSpeechError = (error) => {
+      console.error('Speech recognition error:', error);
+      setIsRecording(false);
+      setIsTranscribing(false);
+      Alert.alert('Error', 'Failed to recognize speech. Please try again.');
+    };
+
+    Voice.onSpeechPartialResults = (event) => {
+      if (event.value && event.value.length > 0) {
+        // Show partial results in real-time
+        setMessageText(event.value[0]);
+      }
+    };
+  };
+
+  const cleanupVoiceRecognition = async () => {
+    try {
+      await Voice.destroy();
+      Voice.removeAllListeners();
+      if (recognitionTimeout.current) {
+        clearTimeout(recognitionTimeout.current);
+      }
+    } catch (error) {
+      console.error('Error cleaning up voice recognition:', error);
+    }
+  };
+
+  const handleVoiceInput = async () => {
+    if (isRecording) {
+      // Stop recording
+      try {
+        await Voice.stop();
+        setIsRecording(false);
+        setIsTranscribing(true);
+        
+        // Set a timeout to stop transcribing if no results come back
+        recognitionTimeout.current = setTimeout(() => {
+          setIsTranscribing(false);
+        }, 3000);
+      } catch (error) {
+        console.error('Error stopping recording:', error);
+        Alert.alert('Error', 'Failed to stop recording');
+        setIsRecording(false);
+        setIsTranscribing(false);
+      }
+    } else {
+      // Start recording
+      try {
+        // Clear any existing text when starting new recording
+        setMessageText('');
+        
+        // Check if speech recognition is available
+        const isAvailable = await Voice.isAvailable();
+        if (!isAvailable) {
+          Alert.alert(
+            'Not Available',
+            'Speech recognition is not available on this device.'
+          );
+          return;
+        }
+
+        // Start speech recognition
+        await Voice.start('en-US');
+        setIsRecording(true);
+      } catch (error) {
+        console.error('Error starting recording:', error);
+        Alert.alert(
+          'Error',
+          'Failed to start voice recording. Please check microphone permissions.'
+        );
+        setIsRecording(false);
+      }
+    }
+  };
+
   const handleBack = () => {
     router.back();
   };
