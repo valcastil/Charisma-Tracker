@@ -12,6 +12,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
+import Voice from '@react-native-voice/voice';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { IconSymbol } from '@/components/ui/icon-symbol';
@@ -47,8 +48,11 @@ export default function ChatScreen() {
     isOnline: false,
   });
   const [showAttachmentModal, setShowAttachmentModal] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  const [isTranscribing, setIsTranscribing] = useState(false);
 
   const flatListRef = useRef<FlatList>(null);
+  const recognitionTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     initializeChat();

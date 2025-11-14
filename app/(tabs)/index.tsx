@@ -127,15 +127,6 @@ ${entry.notes ? `Notes: ${entry.notes}` : ''}
           <CharismaLogo size={50} />
           <Text style={[styles.title, { color: colors.text }]}>Charisma Tracker</Text>
         </View>
-        {/* Temporary Reset Button for Testing */}
-        <TouchableOpacity
-          style={styles.resetButton}
-          onPress={async () => {
-            await AsyncStorage.removeItem(ONBOARDING_KEY);
-            router.replace('/modal');
-          }}>
-          <Text style={styles.resetButtonText}>Reset</Text>
-        </TouchableOpacity>
       </View>
 
       {/* Entries List */}
@@ -237,17 +228,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
   },
-  resetButton: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
-    backgroundColor: '#FF3B30',
-  },
-  resetButtonText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
-  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -325,11 +305,13 @@ const styles = StyleSheet.create({
   entryNotes: {
     fontSize: 14,
     lineHeight: 20,
+    paddingRight: 50,
+    marginBottom: 8,
   },
   shareButton: {
     position: 'absolute',
-    bottom: 12,
-    right: 12,
+    bottom: 16,
+    right: 16,
     width: 36,
     height: 36,
     borderRadius: 18,
