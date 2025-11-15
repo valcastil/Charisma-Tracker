@@ -9,6 +9,7 @@ import { StatsCard } from '@/components/profile/stats-card';
 import { RecentEntries } from '@/components/profile/recent-entries';
 import { QuickActions } from '@/components/profile/settings-button';
 import { getProfile, updateProfile, calculateUserStats, getRecentEntries } from '@/utils/profile-utils';
+import { supabase } from '@/lib/supabase';
 
 const ENTRIES_KEY = '@charisma_entries';
 
@@ -88,6 +89,44 @@ export default function ProfileScreen() {
     router.push('/settings');
   };
 
+  const handleSubscription = () => {
+    router.push('/subscription');
+  };
+
+  const handleSignOut = async () => {
+    Alert.alert(
+      'Sign Out',
+      'Are you sure you want to sign out? Your data will be saved locally.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Sign Out',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              const { error } = await supabase.auth.signOut();
+              if (error) throw error;
+              
+              Alert.alert(
+                'Signed Out',
+                'You have been signed out successfully. Your data is saved locally.',
+                [
+                  {
+                    text: 'OK',
+                    onPress: () => loadProfileData(), // Reload profile to update UI
+                  },
+                ]
+              );
+            } catch (error) {
+              console.error('Error signing out:', error);
+              Alert.alert('Error', 'Failed to sign out. Please try again.');
+            }
+          },
+        },
+      ]
+    );
+  };
+
   const handleExportData = async () => {
     // This is handled in the settings button component
   };
@@ -137,11 +176,13 @@ export default function ProfileScreen() {
           onEditProfile={handleEditProfile}
           onExportData={handleExportData}
           onSettings={handleSettings}
+          onSubscription={handleSubscription}
+          onSignOut={handleSignOut}
         />
         
         <View style={styles.footer}>
           <Text style={[styles.footerText, { color: colors.textSecondary }]}>
-            Charisma Tracker v1.0.0
+            Charisma Tracker v1.0.1
           </Text>
         </View>
       </ScrollView>

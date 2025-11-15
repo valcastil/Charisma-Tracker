@@ -7,6 +7,9 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  Modal,
+  ScrollView,
+  Pressable,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,6 +18,20 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { CharismaLogo } from '@/components/charisma-logo';
 
 const ENTRIES_KEY = '@charisma_entries';
+
+// Inspirational Charisma Quotes
+const CHARISMA_QUOTES = [
+  "Charisma is the transference of enthusiasm.",
+  "I'm really tall when I stand on my charisma.",
+  "Charisma is the perfect blend of warmth and confidence.",
+  "Awaken your charisma from within.",
+  "People who love life have charisma because they fill the room with positive energy.",
+  "Let your confidence shine—it's contagious.",
+  "You light up the room by being boldly yourself.",
+  "Energy and passion are your daily charisma boosters.",
+  "Radiate positivity and watch the world respond.",
+  "Stand tall, your charisma speaks volumes.",
+];
 
 // Map charisma IDs to readable names
 const charismaNames: { [key: string]: string } = {
@@ -430,6 +447,16 @@ export default function AddEntryScreen() {
 
   const [message, setMessage] = useState('');
   const [saving, setSaving] = useState(false);
+  const [showQuotesModal, setShowQuotesModal] = useState(false);
+
+  const handleSelectQuote = (quote: string) => {
+    // Add quote to message with proper spacing
+    const newMessage = message.trim() 
+      ? `${message.trim()}\n\n${quote}` 
+      : quote;
+    setMessage(newMessage);
+    setShowQuotesModal(false);
+  };
 
   const handleContinue = async () => {
     setSaving(true);
@@ -522,6 +549,13 @@ export default function AddEntryScreen() {
           textAlignVertical="top"
           autoFocus
         />
+        {/* Add Quote Button */}
+        <TouchableOpacity
+          style={styles.addQuoteButton}
+          onPress={() => setShowQuotesModal(true)}
+          activeOpacity={0.8}>
+          <Text style={styles.addQuoteButtonText}>+</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Continue Button */}
@@ -536,6 +570,40 @@ export default function AddEntryScreen() {
           </Text>
         </TouchableOpacity>
       </View>
+
+      {/* Quotes Modal */}
+      <Modal
+        visible={showQuotesModal}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setShowQuotesModal(false)}>
+        <Pressable 
+          style={styles.modalOverlay}
+          onPress={() => setShowQuotesModal(false)}>
+          <Pressable style={styles.modalContent} onPress={(e) => e.stopPropagation()}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>✨ Inspirational Quotes</Text>
+              <TouchableOpacity
+                onPress={() => setShowQuotesModal(false)}
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+                <Text style={styles.modalCloseButton}>✕</Text>
+              </TouchableOpacity>
+            </View>
+            
+            <ScrollView style={styles.quotesScrollView} showsVerticalScrollIndicator={false}>
+              {CHARISMA_QUOTES.map((quote, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={styles.quoteItem}
+                  onPress={() => handleSelectQuote(quote)}
+                  activeOpacity={0.7}>
+                  <Text style={styles.quoteText}>{quote}</Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </Pressable>
+        </Pressable>
+      </Modal>
     </KeyboardAvoidingView>
   );
 }
@@ -579,6 +647,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingBottom: 20,
+    position: 'relative',
   },
   textInput: {
     flex: 1,
@@ -588,6 +657,28 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
     textAlignVertical: 'top',
+  },
+  addQuoteButton: {
+    position: 'absolute',
+    bottom: 30,
+    right: 30,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: '#F4C542',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#F4C542',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  addQuoteButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000000',
+    lineHeight: 32,
   },
   bottomSection: {
     paddingHorizontal: 40,
@@ -609,5 +700,54 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#000000',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    justifyContent: 'flex-end',
+  },
+  modalContent: {
+    backgroundColor: '#1A1A1A',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    paddingTop: 20,
+    paddingBottom: 40,
+    maxHeight: '80%',
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 24,
+    paddingBottom: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#333333',
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+  },
+  modalCloseButton: {
+    fontSize: 28,
+    color: '#999999',
+    fontWeight: '300',
+  },
+  quotesScrollView: {
+    paddingHorizontal: 24,
+    paddingTop: 16,
+  },
+  quoteItem: {
+    backgroundColor: '#2A2A2A',
+    padding: 20,
+    borderRadius: 12,
+    marginBottom: 12,
+    borderLeftWidth: 4,
+    borderLeftColor: '#F4C542',
+  },
+  quoteText: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    lineHeight: 24,
   },
 });

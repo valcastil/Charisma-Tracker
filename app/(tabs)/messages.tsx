@@ -222,7 +222,7 @@ export default function MessagesScreen() {
         }
         ListEmptyComponent={
           <View style={styles.emptyState}>
-            <IconSymbol size={64} name="message" color={colors.textSecondary} />
+            <IconSymbol size={56} name="message" color={colors.textSecondary} />
             <Text style={[styles.emptyText, { color: colors.textSecondary }]}>
               No conversations yet
             </Text>
@@ -254,9 +254,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   newMessageButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 26,
+    height: 26,
+    borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',

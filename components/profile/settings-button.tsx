@@ -11,6 +11,8 @@ const iconNames = {
   person: 'person',
   export: 'square.and.arrow.up',
   gear: 'gearshape',
+  star: 'star.fill',
+  signout: 'rectangle.portrait.and.arrow.right',
   chevron: 'chevron.right'
 } as const;
 
@@ -62,9 +64,11 @@ interface QuickActionsProps {
   onEditProfile: () => void;
   onExportData: () => void;
   onSettings: () => void;
+  onSubscription?: () => void;
+  onSignOut?: () => void;
 }
 
-export function QuickActions({ onEditProfile, onExportData, onSettings }: QuickActionsProps) {
+export function QuickActions({ onEditProfile, onExportData, onSettings, onSubscription, onSignOut }: QuickActionsProps) {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'dark'];
 
@@ -85,6 +89,14 @@ export function QuickActions({ onEditProfile, onExportData, onSettings }: QuickA
       <Text style={[styles.sectionTitle, { color: colors.text }]}>Quick Actions</Text>
       
       <View style={styles.buttonGroup}>
+        {onSubscription && (
+          <SettingsButton
+            title="Upgrade to Pro ✨"
+            icon="star"
+            onPress={onSubscription}
+          />
+        )}
+        
         <SettingsButton
           title="Edit Profile"
           icon="person"
@@ -102,6 +114,15 @@ export function QuickActions({ onEditProfile, onExportData, onSettings }: QuickA
           icon="gear"
           onPress={onSettings}
         />
+        
+        {onSignOut && (
+          <SettingsButton
+            title="Sign Out"
+            icon="signout"
+            onPress={onSignOut}
+            destructive
+          />
+        )}
       </View>
     </View>
   );

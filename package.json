@@ -1,7 +1,7 @@
 {
   "name": "charismatracker",
   "main": "expo-router/entry",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "start": "expo start --tunnel",
     "reset-project": "node ./scripts/reset-project.js",
@@ -17,6 +17,7 @@
     "@react-navigation/bottom-tabs": "^7.4.0",
     "@react-navigation/elements": "^2.6.3",
     "@react-navigation/native": "^7.1.8",
+    "@stripe/stripe-react-native": "0.50.3",
     "@supabase/supabase-js": "^2.39.0",
     "expo": "54.0.23",
     "expo-constants": "~18.0.10",
@@ -50,6 +51,7 @@
     "babel-preset-expo": "~54.0.0",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
+    "supabase": "^2.58.5",
     "typescript": "~5.9.2"
   },
   "private": true
